@@ -14,8 +14,8 @@ export default function Home() {
         <Headline />
         <ProjectsSection />
         <TechSection />
-        <WritingSection />
         <AchievementsSection />
+        <WritingSection />
       </main>
       <Footer />
     </>

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/src/components/theme-provider";
+import { CommandMenuProvider } from "@/src/context/CommandMenuContext";
+import { CommandMenu } from "@/src/components/CommandMenu";
 
 const ebGaramond = EB_Garamond({
   subsets: ["latin"],
@@ -34,7 +37,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${ebGaramond.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+      className={`${ebGaramond.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <link
@@ -43,7 +47,16 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen antialiased">
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+        >
+          <CommandMenuProvider>
+            {children}
+            <CommandMenu />
+          </CommandMenuProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
